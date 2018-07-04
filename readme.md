@@ -64,3 +64,18 @@ foreach (var notification in notificationResult.Notifications.Where(n => n.Type 
 ```
 
 See <a href="src/Example">the example project</a> on a fully setup example on how to use the FOMA SDK, and start importing orders into your system.
+
+## Contribute
+
+We value your contribution!
+
+1. Fork it.
+1. Create someting impressive.
+1. Create a pull request.
+
+If you need to update the models, the easiest is to leverage the online generator:
+
+1. https://generator.swagger.io/
+1. `POST /gen/clients/csharp-dotnet2` with body `{ "swaggerUrl": "https://fulfillment.at.cimpress.io/swagger/fulfillment-order-manager/swagger.json" }`
+1. Download the result, and copy the `model` folder to this `model` folder.
+1. Adjust all namespaces (several IDEs and tools allow to do this with a single button click).
