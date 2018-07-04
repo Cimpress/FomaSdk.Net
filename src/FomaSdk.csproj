@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Cimpress.Clients.Foma</PackageId>
+    <Authors>Cimpress, AT squad</Authors>
+    <Company>Cimpress</Company>
+    <Product>Cimpress FomaSdk</Product>
+    <Description>An Client SDK for accessing the Fulfillment Order Manager API (FOMA).</Description>
+    <AssemblyName>Cimpress.Clients.Foma</AssemblyName>
+    <RootNamespace>Cimpress.Clients.Foma</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cimpress.Extensions.Http" Version="2.0.100" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+</Project>
