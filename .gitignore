@@ -1,0 +1,9 @@
+.vs/
+.vscode/
+.idea/
+bin/
+obj/
+artifacts/
+*.DotSettings.user
+*.csproj.user
+launchSettings.json
