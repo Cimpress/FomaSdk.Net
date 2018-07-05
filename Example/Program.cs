@@ -106,7 +106,7 @@ namespace Cimpress.Clients.Foma.Example
                 logger.LogInformation($"Downloading details for item {nItem.ItemId}: artwork / document");
                 using (var response = await fomaSdk.Download(item.Links[LinkRels.Document].Href))
                 {
-                    var suggestedFilename = response.Content.Headers.ContentDisposition.FileName;
+                    var suggestedFilename = response.Content.Headers.ContentDisposition.FileNameStar;
                     var ext = (string.IsNullOrEmpty(suggestedFilename) ? ".pdf" : Path.GetExtension(suggestedFilename)) ?? ".pdf";
                     using (var fileStream = File.OpenWrite($"imported-item-{item.ItemId}{ext}"))
                     {
