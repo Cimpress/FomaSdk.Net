@@ -1,6 +1,13 @@
 # FomaSdk.Net - A client SDK for the Fulfillment Order Manager API (FOMA)
 
+[![NuGet version](https://badge.fury.io/nu/Cimpress.Clients.Foma.svg)](https://badge.fury.io/nu/Cimpress.Clients.Foma)
+[![Build status](https://ci.appveyor.com/api/projects/status/ydt8l4qn46v2ye1y/branch/master?svg=true)](https://ci.appveyor.com/project/thoean/fomasdk-net/branch/master)
+
 ## Usage
+
+### Installation
+
+The FomaSdk.Net is available on nuget.org. To use FomaSdk.net in your project, add a dependency to `Cimpress.Clients.Foma`.
 
 ### Configuration
 
