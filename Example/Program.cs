@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Cimpress.Auth0.Client;
@@ -17,43 +17,51 @@ namespace Cimpress.Clients.Foma.Example
 
         static void Main(string[] args)
         {
-            if (args.Length != 2)
+            if (args.Length != 3)
             {
-                Console.Write("You must specify 2 arguments: <username> <password>");
+                Console.Write("You must specify 3 arguments: <username> <password> <fulfillerId>");
                 return;
             }
 
             try
             {
-                new Program(args[0], args[1]).Execute().Wait();
+                new Program(args[0], args[1]).Execute(args[2]).Wait();
             }
             catch (Exception ex)
             {
                 Console.Write(ex);
             }
+
+            Console.ReadLine();
         }
 
         public Program(string username, string password)
         {
             // logger factory / adjust to your needs to log to the desired destination
             var loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole();
             logger = loggerFactory.CreateLogger<Program>();
-
+            
             // create HTTP client with correct authentication and basic logging
+            logger.LogInformation("Creating http client");
             var httpClient = CreateHttpClient(loggerFactory, username, password);
 
             // create instance of FOMA SDK
+            logger.LogInformation("Creating foma SDK");
             fomaSdk = new FomaClient(httpClient, loggerFactory.CreateLogger<FomaClient>());
         }
 
-        private async Task Execute()
+        private async Task Execute(string fulfillerId)
         {
             // read all notifications
-            var notificationResult = await fomaSdk.GetNotifications("kmr0f5gfvd");
+            logger.LogInformation("Querying FOMA for notifications");
+            var notificationResult = await fomaSdk.GetNotifications(fulfillerId);
+            logger.LogInformation($"Found {notificationResult.TotalCount} notifications.");
 
             // loop through all notifications
             foreach (var notification in notificationResult.Notifications)
             {
+                logger.LogInformation($"Found notification {notification.NotificationId} of type {notification.Type}.");
                 if (notification.Type == "OrderRequest")
                 {
                     try
@@ -71,24 +79,44 @@ namespace Cimpress.Clients.Foma.Example
 
         private async Task AcceptNotification(NotificationDto notification, NotificationAcceptRejectDto acceptRejectDetails = null)
         {
+            logger.LogInformation($"Accepting notification {notification.NotificationId}");
             await fomaSdk.SendData<NotificationAcceptRejectDto>(notification.Links[LinkRels.Accept].Href);
         }
 
         private async Task RejectNotification(NotificationDto notification, NotificationAcceptRejectDto acceptRejectDetails = null)
         {
+            logger.LogWarning($"Rejecting notification {notification.NotificationId}");
             await fomaSdk.SendData<NotificationAcceptRejectDto>(notification.Links[LinkRels.Accept].Href);
         }
 
         private async Task ImportOrder(NotificationDto notification)
         {
+            logger.LogInformation($"Processing notification for order {notification.Order.OrderId}");
             foreach (var nItem in notification.Items)
             {
+                logger.LogInformation($"Downloading details for item {nItem.ItemId}: item details");
                 var item = await fomaSdk.GetData<ItemDto>(nItem.Links[LinkRels.Self].Href);
+
+                logger.LogInformation($"Downloading details for item {nItem.ItemId}: manufacturing details");
                 var manufacturingDetails = await fomaSdk.GetData<ManufacturingDetailDto>(item.Links[LinkRels.ManufacturingDetails].Href);
+
+                logger.LogInformation($"Downloading details for item {nItem.ItemId}: order details");
                 var order = await fomaSdk.GetData<OrderDto>(item.Order.Links[LinkRels.Self].Href);
 
+                logger.LogInformation($"Downloading details for item {nItem.ItemId}: artwork / document");
+                using (var response = await fomaSdk.Download(item.Links[LinkRels.Document].Href))
+                {
+                    var suggestedFilename = response.Content.Headers.ContentDisposition.FileName;
+                    var ext = (string.IsNullOrEmpty(suggestedFilename) ? ".pdf" : Path.GetExtension(suggestedFilename)) ?? ".pdf";
+                    using (var fileStream = File.OpenWrite($"imported-item-{item.ItemId}{ext}"))
+                    {
+                        await response.Content.CopyToAsync(fileStream);
+                    }
+                }
+
+                logger.LogInformation($"Importing item {nItem.ItemId}");
                 var dataToImport = (item, manufacturingDetails, order);
-                System.IO.File.WriteAllText($"imported-item-{item.ItemId}.json", JsonConvert.SerializeObject(dataToImport));
+                File.WriteAllText($"imported-item-{item.ItemId}.json", JsonConvert.SerializeObject(dataToImport));
             }
         }
 

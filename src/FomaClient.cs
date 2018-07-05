@@ -33,6 +33,13 @@ namespace Cimpress.Clients.Foma
             }
         }
 
+        public async Task<HttpResponseMessage> Download(string url)
+        {
+            var response = await httpClient.GetAsync(url);
+            await response.LogAndThrowIfNotSuccessStatusCode(logger);
+            return response;
+        }
+
         public async Task SendData<T>(string url, T data = default(T))
         {
             using (var response = await httpClient.PostAsync(url, data.ToHttpContent()))
