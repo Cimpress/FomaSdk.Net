@@ -13,7 +13,7 @@ function Pack-Project
     param([string] $DirectoryName)
 
     Push-Location $DirectoryName
-    & dotnet pack -c Release -o ..\..\.\artifacts
+    & dotnet pack -c Release -o ..\.\artifacts
     if($LASTEXITCODE -ne 0) { exit 1 }    
     Pop-Location
 }
