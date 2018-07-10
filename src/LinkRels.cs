@@ -18,7 +18,6 @@
         public const string CustomsDetails = "customs-details";
         public const string Status = "status";
         public const string ManufacturingDetails = "manufacturing-details";
-        public const string Jobsheet = "jobsheet";
         public const string Notifications = "notifications";
         public const string PricingInformation = "pricing-information";
     }
