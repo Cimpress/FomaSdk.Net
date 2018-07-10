@@ -70,7 +70,7 @@ foreach (var notification in notificationResult.Notifications.Where(n => n.Type 
 }
 ```
 
-See <a href="src/Example">the example project</a> on a fully setup example on how to use the FOMA SDK, and start importing orders into your system.
+See <a href="./Example">the example project</a> on a fully setup example on how to use the FOMA SDK, and start importing orders into your system.
 
 ## Contribute
 
