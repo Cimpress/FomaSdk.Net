@@ -40,11 +40,12 @@ namespace Cimpress.Clients.Foma
             return response;
         }
 
-        public async Task SendData<T>(string url, T data = default(T))
+        public async Task<HttpResponseMessage> SendData<T>(string url, T data = default(T))
         {
             using (var response = await httpClient.PostAsync(url, data.ToHttpContent()))
             {
                 await response.LogAndThrowIfNotSuccessStatusCode(logger);
+                return response;
             }
         }
     }

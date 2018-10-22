@@ -80,13 +80,15 @@ namespace Cimpress.Clients.Foma.Example
         private async Task AcceptNotification(NotificationDto notification, NotificationAcceptRejectDto acceptRejectDetails = null)
         {
             logger.LogInformation($"Accepting notification {notification.NotificationId}");
-            await fomaSdk.SendData<NotificationAcceptRejectDto>(notification.Links[LinkRels.Accept].Href);
+            var response = await fomaSdk.SendData<NotificationAcceptRejectDto>(notification.Links[LinkRels.Accept].Href);
+            logger.LogInformation($"Accepting notification {notification.NotificationId} resulted in {response.StatusCode}.");
         }
 
         private async Task RejectNotification(NotificationDto notification, NotificationAcceptRejectDto acceptRejectDetails = null)
         {
             logger.LogWarning($"Rejecting notification {notification.NotificationId}");
-            await fomaSdk.SendData<NotificationAcceptRejectDto>(notification.Links[LinkRels.Accept].Href);
+            var response = await fomaSdk.SendData<NotificationAcceptRejectDto>(notification.Links[LinkRels.Accept].Href);
+            logger.LogInformation($"Accepting notification {notification.NotificationId} resulted in {response.StatusCode}.");
         }
 
         private async Task ImportOrder(NotificationDto notification)
