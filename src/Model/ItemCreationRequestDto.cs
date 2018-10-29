@@ -43,14 +43,6 @@ namespace Cimpress.Clients.Foma.Model {
     public AddressDto DestinationAddress { get; set; }
 
     /// <summary>
-    /// Dynamic product attributes of an item configrued.  For the same product, items can have different attributes.
-    /// </summary>
-    /// <value>Dynamic product attributes of an item configrued.  For the same product, items can have different attributes.</value>
-    [DataMember(Name="itemAttributes", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "itemAttributes")]
-    public Dictionary<string, string> ItemAttributes { get; set; }
-
-    /// <summary>
     /// Information regarding the merchant including contact options to request support for the order.
     /// </summary>
     /// <value>Information regarding the merchant including contact options to request support for the order.</value>
@@ -78,7 +70,6 @@ namespace Cimpress.Clients.Foma.Model {
       sb.Append("  Links: ").Append(Links).Append("\n");
       sb.Append("  LocalPromisedArrivalDate: ").Append(LocalPromisedArrivalDate).Append("\n");
       sb.Append("  DestinationAddress: ").Append(DestinationAddress).Append("\n");
-      sb.Append("  ItemAttributes: ").Append(ItemAttributes).Append("\n");
       sb.Append("  MerchantInformation: ").Append(MerchantInformation).Append("\n");
       sb.Append("  Tags: ").Append(Tags).Append("\n");
       sb.Append("}\n");

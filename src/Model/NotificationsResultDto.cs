@@ -25,13 +25,6 @@ namespace Cimpress.Clients.Foma.Model {
     public int? Count { get; set; }
 
     /// <summary>
-    /// Gets or Sets TotalCount
-    /// </summary>
-    [DataMember(Name="totalCount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "totalCount")]
-    public int? TotalCount { get; set; }
-
-    /// <summary>
     /// Gets or Sets Links
     /// </summary>
     [DataMember(Name="links", EmitDefaultValue=false)]
@@ -48,7 +41,6 @@ namespace Cimpress.Clients.Foma.Model {
       sb.Append("class NotificationsResultDto {\n");
       sb.Append("  Notifications: ").Append(Notifications).Append("\n");
       sb.Append("  Count: ").Append(Count).Append("\n");
-      sb.Append("  TotalCount: ").Append(TotalCount).Append("\n");
       sb.Append("  Links: ").Append(Links).Append("\n");
       sb.Append("}\n");
       return sb.ToString();

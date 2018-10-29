@@ -56,7 +56,7 @@ namespace Cimpress.Clients.Foma.Example
             // read all notifications
             logger.LogInformation("Querying FOMA for notifications");
             var notificationResult = await fomaSdk.GetNotifications(fulfillerId);
-            logger.LogInformation($"Found {notificationResult.TotalCount} notifications.");
+            logger.LogInformation($"Found {notificationResult.Count.GetValueOrDefault()} notifications.");
 
             // loop through all notifications
             foreach (var notification in notificationResult.Notifications)

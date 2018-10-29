@@ -33,6 +33,14 @@ namespace Cimpress.Clients.Foma.Model {
     [JsonProperty(PropertyName = "forecastedLate")]
     public bool? ForecastedLate { get; set; }
 
+    /// <summary>
+    /// Filter items which have a plan and the ExpectedShipTime is specified for the item
+    /// </summary>
+    /// <value>Filter items which have a plan and the ExpectedShipTime is specified for the item</value>
+    [DataMember(Name="planScheduled", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "planScheduled")]
+    public bool? PlanScheduled { get; set; }
+
 
     /// <summary>
     /// Get the string presentation of the object
@@ -44,6 +52,7 @@ namespace Cimpress.Clients.Foma.Model {
       sb.Append("  FulfillerId: ").Append(FulfillerId).Append("\n");
       sb.Append("  Status: ").Append(Status).Append("\n");
       sb.Append("  ForecastedLate: ").Append(ForecastedLate).Append("\n");
+      sb.Append("  PlanScheduled: ").Append(PlanScheduled).Append("\n");
       sb.Append("}\n");
       return sb.ToString();
     }

@@ -10,9 +10,9 @@ namespace Cimpress.Clients.Foma.Model {
   [DataContract]
   public class ItemSearchSortDto {
     /// <summary>
-    /// The field to sort on. Supported fields are \"createdDate\", \"productName\", \"expectedShipTime\", \"itemId\", \"orderId\", \"promisedArrivalDate\".
+    /// The field to sort on. Supported fields are \"createdDate\", \"productName\", \"expectedShipTime\", \"itemId\", \"orderId\", \"promisedArrivalDate\", \"lastUpdateDate\".
     /// </summary>
-    /// <value>The field to sort on. Supported fields are \"createdDate\", \"productName\", \"expectedShipTime\", \"itemId\", \"orderId\", \"promisedArrivalDate\".</value>
+    /// <value>The field to sort on. Supported fields are \"createdDate\", \"productName\", \"expectedShipTime\", \"itemId\", \"orderId\", \"promisedArrivalDate\", \"lastUpdateDate\".</value>
     [DataMember(Name="field", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "field")]
     public string Field { get; set; }

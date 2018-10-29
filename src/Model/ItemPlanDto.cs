@@ -6,18 +6,10 @@ using Newtonsoft.Json;
 namespace Cimpress.Clients.Foma.Model {
 
   /// <summary>
-  /// The optimized suggested best plan for an item, including production and shipping.  This is not a contractual plan, but instead an up to date calculation on when the optimal time to produce  and ship an item is.  Use this better schedule the usage of physical resources.
+  /// The optimized suggested best plan for an item, including production and shipping.
   /// </summary>
   [DataContract]
   public class ItemPlanDto {
-    /// <summary>
-    /// The production plan, if available. This will only be available if the item hasn't been shipped yet.  The production plan offsets the start of production with the configured  Production Time SLA https://productiontime.dnj.cimpress.io. If production has not started the optimal production time is calculated from the optimal ship date found in the OrderManager.Controllers.SimpleApi.Items.Plan.ItemPlanDto.ShippingPlans.
-    /// </summary>
-    /// <value>The production plan, if available. This will only be available if the item hasn't been shipped yet.  The production plan offsets the start of production with the configured  Production Time SLA https://productiontime.dnj.cimpress.io. If production has not started the optimal production time is calculated from the optimal ship date found in the OrderManager.Controllers.SimpleApi.Items.Plan.ItemPlanDto.ShippingPlans.</value>
-    [DataMember(Name="production", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "production")]
-    public ProductionPlanDto Production { get; set; }
-
     /// <summary>
     /// The shipping plan, if available. This will only be available if the item hasn't been shipped yet.  This shipping plan is not a contract, but rather a live plan based on the configurations  of the Production Time and the Carrier Quoter Configuration https://qcm.qp.cimpress.io.  Use these configurations to improve the plan reliability.
     /// </summary>
@@ -50,7 +42,6 @@ namespace Cimpress.Clients.Foma.Model {
     public override string ToString()  {
       var sb = new StringBuilder();
       sb.Append("class ItemPlanDto {\n");
-      sb.Append("  Production: ").Append(Production).Append("\n");
       sb.Append("  Shipping: ").Append(Shipping).Append("\n");
       sb.Append("  ShippingPlans: ").Append(ShippingPlans).Append("\n");
       sb.Append("  Links: ").Append(Links).Append("\n");
