@@ -31,7 +31,7 @@ namespace Cimpress.Clients.Foma.Model {
     /// <value>Details if the item has been shipped.</value>
     [DataMember(Name="shipped", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "shipped")]
-    public DetailQuantityStatus Shipped { get; set; }
+    public DetailQuantityStatusWithShipmentLinks Shipped { get; set; }
 
     /// <summary>
     /// Details if the item has been accepted.

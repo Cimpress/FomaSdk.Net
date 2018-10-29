@@ -11,9 +11,9 @@ namespace Cimpress.Clients.Foma.Model {
   [DataContract]
   public class ShippingPlanDto {
     /// <summary>
-    /// When the item should be shipped, according to the production times for the fulfiller and SKU, adhering to shipping requirements.  This is optimized based on fulfiller's configuration  and is not a contractual plan.
+    /// When the item should be shipped, according to the production times for the fulfiller and SKU, adhering to shipping requirements.  This is optimized based on fulfiller's configuration.  Often a contract requires the fulfiller to follow this plan.
     /// </summary>
-    /// <value>When the item should be shipped, according to the production times for the fulfiller and SKU, adhering to shipping requirements.  This is optimized based on fulfiller's configuration  and is not a contractual plan.</value>
+    /// <value>When the item should be shipped, according to the production times for the fulfiller and SKU, adhering to shipping requirements.  This is optimized based on fulfiller's configuration.  Often a contract requires the fulfiller to follow this plan.</value>
     [DataMember(Name="expectedShipTime", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "expectedShipTime")]
     public DateTime? ExpectedShipTime { get; set; }

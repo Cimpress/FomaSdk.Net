@@ -75,9 +75,17 @@ namespace Cimpress.Clients.Foma.Model {
     public List<DeliveryDetailsDto> DeliveryDetails { get; set; }
 
     /// <summary>
-    /// Links to additional resources for this item. Specified rels are:  * document: Retrieving the document of the item.  * preview: Retrieving the preview of the item.  * plan: Simplified production and shipping plan.  * action: Actions to perform like status changes.  * status: Status changes.  * manufacturing-details: Additional, manufacturing related details, depending on decoration technology.  * jobsheet: Download of a job sheet of the item.  * delivery-details: Details to delivery details that are relevant for split shipping.
+    /// Metadata for this Item
     /// </summary>
-    /// <value>Links to additional resources for this item. Specified rels are:  * document: Retrieving the document of the item.  * preview: Retrieving the preview of the item.  * plan: Simplified production and shipping plan.  * action: Actions to perform like status changes.  * status: Status changes.  * manufacturing-details: Additional, manufacturing related details, depending on decoration technology.  * jobsheet: Download of a job sheet of the item.  * delivery-details: Details to delivery details that are relevant for split shipping.</value>
+    /// <value>Metadata for this Item</value>
+    [DataMember(Name="metadata", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "metadata")]
+    public MetadataDto Metadata { get; set; }
+
+    /// <summary>
+    /// Links to additional resources for this item. Specified rels are:  * document: Retrieving the document of the item.  * preview: Retrieving the preview of the item.  * plan: Simplified production and shipping plan.  * action: Actions to perform like status changes.  * status: Status changes.  * manufacturing-details: Additional, manufacturing related details, depending on decoration technology.  * delivery-details: Details to delivery details that are relevant for split shipping.
+    /// </summary>
+    /// <value>Links to additional resources for this item. Specified rels are:  * document: Retrieving the document of the item.  * preview: Retrieving the preview of the item.  * plan: Simplified production and shipping plan.  * action: Actions to perform like status changes.  * status: Status changes.  * manufacturing-details: Additional, manufacturing related details, depending on decoration technology.  * delivery-details: Details to delivery details that are relevant for split shipping.</value>
     [DataMember(Name="links", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "links")]
     public Dictionary<string, LinkDto> Links { get; set; }
@@ -98,6 +106,7 @@ namespace Cimpress.Clients.Foma.Model {
       sb.Append("  IsTestItem: ").Append(IsTestItem).Append("\n");
       sb.Append("  Attributes: ").Append(Attributes).Append("\n");
       sb.Append("  DeliveryDetails: ").Append(DeliveryDetails).Append("\n");
+      sb.Append("  Metadata: ").Append(Metadata).Append("\n");
       sb.Append("  Links: ").Append(Links).Append("\n");
       sb.Append("}\n");
       return sb.ToString();

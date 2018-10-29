@@ -17,6 +17,14 @@ namespace Cimpress.Clients.Foma.Model {
     [JsonProperty(PropertyName = "manufacturingProperties")]
     public LinkDto ManufacturingProperties { get; set; }
 
+    /// <summary>
+    /// Dynamic product attributes of an item configrued. For the same product, items can have different product configuration attributes.
+    /// </summary>
+    /// <value>Dynamic product attributes of an item configrued. For the same product, items can have different product configuration attributes.</value>
+    [DataMember(Name="productConfiguration", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "productConfiguration")]
+    public LinkDto ProductConfiguration { get; set; }
+
 
     /// <summary>
     /// Get the string presentation of the object
@@ -26,6 +34,7 @@ namespace Cimpress.Clients.Foma.Model {
       var sb = new StringBuilder();
       sb.Append("class ItemRequestLinks {\n");
       sb.Append("  ManufacturingProperties: ").Append(ManufacturingProperties).Append("\n");
+      sb.Append("  ProductConfiguration: ").Append(ProductConfiguration).Append("\n");
       sb.Append("}\n");
       return sb.ToString();
     }
