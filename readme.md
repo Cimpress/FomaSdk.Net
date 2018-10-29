@@ -18,9 +18,10 @@ The easist way to get a valid JWT is to leverage library <a href="https://github
 available on NuGet at <a href="https://www.nuget.org/packages/Cimpress.Auth0.Client">Cimpress.Auth0.Client</a>. Depending on this library means just to provide your credentials
 to this library, and everything around injecting the JWT into the HTTP request is handled automatically by the library.
 
+#### Authentication using Username/Password
 ```csharp
 // settings take from the Cimpress documentation: https://cimpress-support.atlassian.net/wiki/spaces/CI/pages/168001556/Password-Realm+Grants
-Auth0ClientSettings clientSettings = new Auth0ClientSettings
+var clientSettings = new Auth0ClientSettings
 {
     Auth0ServerUrl = "https://cimpress.auth0.com/",
     Auth0Audience = "https://api.cimpress.io/",
@@ -32,8 +33,30 @@ Auth0ClientSettings clientSettings = new Auth0ClientSettings
 };
 
 // create the token provider, and use it in the AuthHandler
-IAuth0TokenProvider tokenProvider = new PasswordRealmTokenProvider(loggerFactory, clientSettings);
-var handler = new AuthHandler(loggerFactory.CreateLogger<Program>(), tokenProvider);
+var loggerFactory = new LoggerFactory();
+var tokenProvider = new PasswordRealmTokenProvider(loggerFactory, clientSettings);
+var handler = new AuthHandler(loggerFactory.CreateLogger(GetType()), tokenProvider);
+
+// create the HTTP client
+var httpClient = new HttpClient(handler);
+var fomaSdk = new FomaClient(httpClient, loggerFactory.CreateLogger<FomaClient>());
+```
+
+#### Authentication using ClientId/ClientSecret
+```csharp
+// settings take from the Cimpress documentation: https://cimpress-support.atlassian.net/wiki/spaces/CI/pages/167444863/Client+Credentials+Grant
+var clientSettings = new Auth0ClientSettings
+{
+    Auth0ServerUrl = "https://cimpress.auth0.com/",
+    Auth0Audience = "https://api.cimpress.io/",
+    Auth0ClientId = "CLIENT_ID",
+    Auth0ClientSecret = "CLIENT_SECRET"
+};
+
+// create the token provider, and use it in the AuthHandler
+var loggerFactory = new LoggerFactory();
+var tokenProvider = new Auth0v2TokenProvider(loggerFactory, clientSettings);
+var handler = new AuthHandler(loggerFactory.CreateLogger(GetType()), tokenProvider);
 
 // create the HTTP client
 var httpClient = new HttpClient(handler);
